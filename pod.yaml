@@ -6,13 +6,6 @@ spec:
   containers:
     - name: kubernetes-details
       image: eu.gcr.io/abdel-tech-talks-210218/kubernetes-expose-details
-      args:
-      - while true; do
-          echo -en '\n';
-          printenv MY_NODE_NAME MY_POD_NAME MY_POD_NAMESPACE;
-          printenv MY_POD_IP MY_POD_SERVICE_ACCOUNT;
-          sleep 10;
-        done;
       env:
         - name: MY_NODE_NAME
           valueFrom:
