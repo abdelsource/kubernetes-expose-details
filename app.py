@@ -6,11 +6,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-	host_name = socket.gethostname()
-	host_ip = socket.gethostbyname(host_name)
 	node_name = os.getenv("MY_NODE_NAME")
-	html = "<h3>Hello {name}!</h3> <b>Hostname:</b> {hostname}<br/><b>Host IP:</b> {ip} <br/><b>Node Name:</b> {nodename} <br/>"
-	return html.format(name=os.getenv("NAME"), hostname=host_name, ip=host_ip, nodename=node_name)
+	namespace = os.getenv("MY_POD_NAMESPACE")
+	pod_name = os.getenv("MY_POD_NAME")
+	pod_ip = os.getenv("MY_POD_IP")
+	pod_sa = os.getenv("MY_POD_SERVICE_ACCOUNT")
+
+	html = "<h3>Hello {name}!</h3> <b>Node Name: </b> {nodename}<br/><b>POD Name: </b> {podname} <br/>"
+	"<b>Namespace:</b> {namespace} <br/> <b>Pod IP:</b> {podip} <br/> <b>Pod Service Account:</b> {pod_sa} <br/>"
+	return html.format(name=os.getenv("NAME"), nodename=node_name, podname=pod_name, namespace=namespace, podip=pod_ip,pod_sa=pod_sa)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8090)
